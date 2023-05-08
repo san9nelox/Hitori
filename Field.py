@@ -17,7 +17,7 @@ def print_board(board):
 size = int(input("Введите размер поля от 6 до 12: "))
 if size < 6 or size > 12:
     while size < 6 or size > 12:
-        size = int(input("Введите размер поля от 4 до 12: "))
+        size = int(input("Введите размер поля от 6 до 12: "))
 
 board = generate_board(size)
 print("Сгенерированное поле:")
