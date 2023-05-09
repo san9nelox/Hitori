@@ -1,15 +1,10 @@
 import pygame
 from pygame.locals import *
 
-from Field import generate_board, size
+from Field import board, size
 
 
 def game():
-    # размеры поля
-
-    # генерируем поле
-    board = generate_board(size)
-
     # инициализация Pygame
     pygame.init()
 
@@ -57,25 +52,20 @@ def game():
                         if cell_rect.collidepoint(mouse_pos):
                             # если ячейка серая, то перекрашиваем ее в черный
                             if screen.get_at(cell_rect.center) == pygame.Color(GRAY):
-                                cell_value = board[i][j]
-                                pygame.draw.rect(screen, BLACK, cell_rect)
-                                text = FONT.render(str(cell_value), True, WHITE)
-                                text_rect = text.get_rect(center=cell_rect.center)
-                                screen.blit(text, text_rect)
+                                change_color(BLACK, WHITE)
                             # если ячейка черная, то перекрашиваем ее в белый
                             elif screen.get_at(cell_rect.center) == pygame.Color(BLACK):
-                                cell_value = board[i][j]
-                                pygame.draw.rect(screen, WHITE, cell_rect)
-                                text = FONT.render(str(cell_value), True, BLACK)
-                                text_rect = text.get_rect(center=cell_rect.center)
-                                screen.blit(text, text_rect)
+                                change_color(WHITE, BLACK)
                             # если ячейка белая, то перекрашиваем ее в серый
                             elif screen.get_at(cell_rect.center) == pygame.Color(WHITE):
-                                cell_value = board[i][j]
-                                pygame.draw.rect(screen, GRAY, cell_rect)
-                                text = FONT.render(str(cell_value), True, BLACK)
-                                text_rect = text.get_rect(center=cell_rect.center)
-                                screen.blit(text, text_rect)
+                                change_color(GRAY, BLACK)
+
+        def change_color(color_background, color_number):
+            cell_value = board[i][j]
+            pygame.draw.rect(screen, color_background, cell_rect)
+            text = FONT.render(str(cell_value), True, color_number)
+            text_rect = text.get_rect(center=cell_rect.center)
+            screen.blit(text, text_rect)
 
         # обновление экрана
         pygame.display.flip()
