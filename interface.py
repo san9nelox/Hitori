@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from Field import board, size
+from field import board, size
 
 # инициализация Pygame
 pygame.init()

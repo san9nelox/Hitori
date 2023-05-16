@@ -1,4 +1,4 @@
-from Interface import *
+from interface import game
 
 if __name__ == "__main__":
     game()
