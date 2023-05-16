@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from field import board, size
+from hotori_logic.field import board, size
 
 # инициализация Pygame
 pygame.init()
