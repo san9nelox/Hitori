@@ -1,24 +1,33 @@
 import random
 
 
-def generate_board(size):
-    board = [[0 for i in range(size)] for j in range(size)]
-    for i in range(size):
-        for j in range(size):
-            board[i][j] = random.randint(1, size)
-    return board
+def generate_board(rows, columns):
+    rectangle = [[0 for j in range(columns)] for i in range(rows)]
+
+    for i in range(rows):
+        for j in range(columns):
+            rectangle[i][j] = random.randint(1, 9)
+    return rectangle
 
 
-def print_board(board):
-    for row in board:
-        print(row)
+def print_board(rectangle):
+    for i in range(n):
+        for j in range(m):
+            print(rectangle[i][j], end=' ')
+        print()
 
 
-size = int(input("Введите размер поля от 6 до 12: "))
-if size < 6 or size > 12:
-    while size < 6 or size > 12:
-        size = int(input("Введите размер поля от 6 до 12: "))
+input_flag = True
+while input_flag:
+    size = input("Введите размер поля n x m от 6 до 10: ")
+    try:
+        size_split = size.split('x')
+        n = int(size_split[0])
+        m = int(size_split[1])
+        if n < 6 or n > 10 or m < 6 or m > 10:
+            continue
+        input_flag = False
+    except:
+        continue
 
-board = generate_board(size)
-print("Сгенерированное поле:")
-print_board(board)
+board = generate_board(n, m)
