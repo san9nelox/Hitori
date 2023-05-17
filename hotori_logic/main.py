@@ -15,10 +15,10 @@ def main():
         root.destroy()
         gui()
 
-    button_cli = tk.Button(root, text="Режим отладки", command=choose_cli)
+    button_cli = tk.Button(root, text="Режим отладки", command=choose_cli, height=6, width=20)
     button_cli.pack()
 
-    button_gui = tk.Button(root, text="Режим игры", command=choose_gui)
+    button_gui = tk.Button(root, text="Режим игры", command=choose_gui, height=6, width=20)
     button_gui.pack()
 
     root.mainloop()
