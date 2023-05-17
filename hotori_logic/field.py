@@ -10,9 +10,9 @@ def generate_board(rows, columns):
     return rectangle
 
 
-def print_board(rectangle):
-    for i in range(n):
-        for j in range(m):
+def print_board(rectangle, rows, colums):
+    for i in range(rows):
+        for j in range(colums):
             print(rectangle[i][j], end=' ')
         print()
 
@@ -31,3 +31,4 @@ while input_flag:
         continue
 
 board = generate_board(n, m)
+print_board(board, n, m)
