@@ -35,6 +35,22 @@ def check_and_replace(arr, n):
             else:
                 count = 1
 
+    return replace_pairs(arr, min_size)
+
+
+def replace_pairs(arr, min_size):
+    for i in range(len(arr)):
+        for j in range(0, len(arr[i]) - 2, 2):
+            if arr[i][j] == arr[i][j + 2]:
+                value = arr[i][j + 1]
+                while arr[i][j + 1] == value:
+                    arr[i][j + 1] = random.randint(1, min_size)
+    for j in range(len(arr[0])):
+        for i in range(0, len(arr) - 2, 2):
+            if arr[i][j] == arr[i + 2][j]:
+                value = arr[i + 1][j]
+                while arr[i + 1][j] == value:
+                    arr[i + 1][j] = random.randint(1, min_size)
     return arr
 
 
@@ -60,4 +76,5 @@ while input_flag:
 
 min_size = min(n, m)
 board = generate_board(n, m, min_size)
+
 print_board(board, n, m)
