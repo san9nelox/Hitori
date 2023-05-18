@@ -1,4 +1,4 @@
-from hotori_logic.field import board, print_board
+from hitori_logic.field import board, print_board
 
 
 def solve_hitori(solved_board):
