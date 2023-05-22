@@ -13,8 +13,6 @@ class ShadeMapStrategy(ABC):
 
 class RandomShader(ShadeMapStrategy):
     def __init__(self, frequency=-1):
-        # if frequency <= 0:
-        #     raise ValueError("Invalid frequency")
         self.frequency = frequency
         self.isFrequencyFixed = True if frequency > 0 else False
         self.shadeMap = None
@@ -37,8 +35,11 @@ class RandomShader(ShadeMapStrategy):
 
     def random_shade(self):
         added = 0
-        while added < self.frequency:
-            index = random.randint(0, len(self.shadeMap) - 1)
+        list_random = []
+        for i in range(len(self.shadeMap)):
+            list_random.append(i)
+        while added < self.frequency and len(list_random) > 0:
+            index = list_random.pop(random.randint(0, len(list_random) - 1))
 
             ok = True
             next_index = self.index(index, 0, -1)

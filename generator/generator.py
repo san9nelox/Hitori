@@ -1,12 +1,13 @@
-from generator.duplicate_strategy import *
-from generator.shade_map_strategy import *
-from generator.initial_grid_populator import *
+from generator.duplicate_strategy import DuplicateStrategy
+from generator.shade_map_strategy import ShadeMapStrategy
+from generator.initial_grid_populator import InitialGridPopulator
+import random
 
 
 class Generator:
-    def __init__(self, size_row: int, size_col, initial_populator: InitialGridPopulator, shade_strategy: ShadeMapStrategy,
+    def __init__(self, size_row: int, size_col, initial_populator: InitialGridPopulator,
+                 shade_strategy: ShadeMapStrategy,
                  duplicate_strategy: DuplicateStrategy, random_seed: int = None):
-
         self.size_row = size_row
         self.size_col = size_col
         self.initial_populator = initial_populator
@@ -26,4 +27,3 @@ class Generator:
         self.duplicate_strategy.fill(self.data, shade_map, self.size_row, self.size_col, self.random)
 
         return self.data
-
