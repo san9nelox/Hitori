@@ -16,7 +16,6 @@ class Generator:
 
         if random_seed is None:
             random_seed = random.randint(0, 2 ** 32 - 1)
-        print(f"Seed: {random_seed}")
         self.random = random.Random(random_seed)
         self.data = [[0] * self.size_col for _ in range(self.size_row)]
 

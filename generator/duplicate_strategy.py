@@ -27,25 +27,6 @@ class DuplicateFiller(DuplicateStrategy):
         self.apply_duplicates()
 
     def apply_duplicates(self):
-        print("Converting shade map into duplicates")
-        print("Input:")
-        # Debug output
-        for row in range(self.size_row):
-            for c in range(self.size_col):
-                if self.shade_map[row + c * self.size_row]:
-                    print("#", end="")
-                else:
-                    print(".", end="")
-            print()
-
-        # Debug output
-        for row in range(self.size_row):
-            for c in range(self.size_col):
-                if self.shade_map[row + c * self.size_row]:
-                    print(" ", end="")
-                else:
-                    print(self.data[row][c], end="")
-            print()
 
         # Take the shaded cells and determine numbers that are duplicate to others
         # in the row or col
@@ -67,13 +48,6 @@ class DuplicateFiller(DuplicateStrategy):
                 mask = self.gen_row_mask(r, self.shade_map) | self.gen_col_mask(c, self.shade_map)
                 value = self.random_number(mask)
                 self.data[r][c] = value
-
-        print("Output:")
-        # Debug output
-        for row in range(self.size_row):
-            for c in range(self.size_col):
-                print(self.data[row][c], end="")
-            print()
 
     def gen_row_mask(self, r, shade_map):
         mask = 0
