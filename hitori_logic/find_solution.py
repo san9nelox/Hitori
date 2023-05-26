@@ -1,4 +1,5 @@
-# from hitori_logic.field import board
+from hitori_logic.field import board
+import copy
 
 
 def find_duplicates(arr_board, arr_col):
@@ -76,6 +77,53 @@ def paint_single(board_colors, board):
                     board_colors[i][j] = 'w'
 
 
+def paint_сontinuous_path(board_colors, i, j):
+    board_colors[i][j] = 'b'
+    if not check_connected_white(board_colors):
+        board_colors[i][j] = 'g'
+
+
+def check_connected_white(array):
+    rows, cols = len(array), len(array[0])
+    visited = set()  # Множество посещенных позиций
+    stack = []  # Стек для обхода соседних элементов
+
+    # Находим первую позицию 'w' или 'g'
+    start_i, start_j = None, None
+    for i in range(rows):
+        for j in range(cols):
+            if array[i][j] == 'w':
+                start_i, start_j = i, j
+                break
+        if start_i is not None:
+            break
+
+    if start_i is None or start_j is None:
+        # Не удалось найти 'w' или 'g'
+        return False
+
+    stack.append((start_i, start_j))
+
+    # Обходим соседние элементы
+    while stack:
+        x, y = stack.pop()
+        visited.add((x, y))
+        # Проверяем соседей по горизонтали и вертикали
+        neighbors = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+        for nx, ny in neighbors:
+            if 0 <= nx < rows and 0 <= ny < cols and (array[nx][ny] == 'w' or array[nx][ny] == 'g') and (
+            nx, ny) not in visited:
+                stack.append((nx, ny))
+
+    # Проверяем, что все 'w' были посещены
+    for i in range(rows):
+        for j in range(cols):
+            if array[i][j] == 'w' and (i, j) not in visited:
+                return False
+
+    return True
+
+
 def is_while(color):
     if color == 'w':
         exit('Головоломку невозможно решить')
@@ -87,15 +135,15 @@ def is_black(color):
 
 
 def hitori_solution():
-    board = [
-        [1, 1, 6, 2, 5, 4, 2],
-        [5, 6, 1, 2, 2, 2, 4],
-        [3, 2, 5, 7, 7, 2, 1],
-        [3, 5, 3, 3, 4, 7, 5],
-        [1, 3, 4, 7, 7, 7, 6],
-        [4, 4, 4, 5, 3, 1, 7],
-        [6, 7, 2, 1, 2, 3, 7]
-    ]
+    # board = [
+    #     [1, 1, 6, 2, 5, 4, 2],
+    #     [5, 6, 1, 2, 2, 2, 4],
+    #     [3, 2, 5, 7, 7, 2, 1],
+    #     [3, 5, 3, 3, 4, 7, 5],
+    #     [1, 3, 4, 7, 7, 7, 6],
+    #     [4, 4, 4, 5, 3, 1, 7],
+    #     [6, 7, 2, 1, 2, 3, 7]
+    # ]
     for row in board:
         print(row)
     board_colors = [['g'] * len(board[0]) for i in range(len(board))]
@@ -109,9 +157,13 @@ def hitori_solution():
             for j in range(len(board_colors[i])):
                 if board_colors[i][j] == 'g':
                     is_painted = True
+                    prev_board_colors = copy.deepcopy(board_colors)
                     paint_in_lines_black(board_colors, board)
                     paint_neighbors_white(board_colors)
                     paint_single(board_colors, board)
+
+                    if prev_board_colors == board_colors:
+                        paint_сontinuous_path(board_colors, i, j)
         if not is_painted:
             break
 
