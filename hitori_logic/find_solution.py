@@ -171,8 +171,6 @@ def hitori_solution():
         hitori_solution()
 
 
-hitori_solution()
-
 """
 [1, 1, 6, 2, 5, 4, 2],
 [5, 6, 1, 2, 2, 2, 4],
