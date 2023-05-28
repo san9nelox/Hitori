@@ -19,4 +19,7 @@ from generator.initial_grid_populator import SwapPopulator
 # generator = Generator(n, m, SwapPopulator(), RandomShader(), DuplicateFiller())
 
 generator = Generator(6, 6, SwapPopulator(), RandomShader(), DuplicateFiller())
-board = generator.generate()
+
+
+def generate():
+    return generator.generate()
