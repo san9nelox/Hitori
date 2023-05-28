@@ -25,12 +25,14 @@ def main():
 
 
 def gui():
-    from interface.GUI import game
-    game()
+    print('Doesn\'t work')
+    # from interface.GUI import game
+    # game()
 
 
 def cli():
-    print("Вы cli")
+    from interface.CLI import all_func
+    all_func()
 
 
 if __name__ == "__main__":

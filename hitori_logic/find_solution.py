@@ -1,4 +1,4 @@
-from hitori_logic.field import generate
+from hitori_logic.field import generate, change_flag
 import copy
 
 
@@ -139,12 +139,9 @@ def is_black(color):
 def hitori_solution():
     board = generate()
     try:
-        for row in board:
-            print(row)
         board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
         find_duplicates(board, board_colors)
         paint_neighbors_white(board_colors)
-        print('\n')
 
         while True:
             is_painted = False
@@ -165,8 +162,12 @@ def hitori_solution():
                 raise AttributeError
                 # exit('Головоломку невозможно решить - маршрут нельзя построить')
 
+        for row in board:
+            print(row)
+        print()
         for row in board_colors:
             print(row)
+        change_flag()
     except AttributeError:
         hitori_solution()
 
