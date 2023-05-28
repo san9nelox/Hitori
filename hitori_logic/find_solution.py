@@ -27,13 +27,13 @@ def paint_neighbors_white(board_colors):
                 if i > 0:
                     is_black(board_colors[i - 1][j])
                     board_colors[i - 1][j] = 'w'
-                if i < len(board_colors[i]) - 1:
+                if i < len(board_colors) - 1:
                     is_black(board_colors[i + 1][j])
                     board_colors[i + 1][j] = 'w'
                 if j > 0:
                     is_black(board_colors[i][j - 1])
                     board_colors[i][j - 1] = 'w'
-                if j < len(board_colors) - 1:
+                if j < len(board_colors[i]) - 1:
                     is_black(board_colors[i][j + 1])
                     board_colors[i][j + 1] = 'w'
 
