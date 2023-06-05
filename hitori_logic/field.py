@@ -36,8 +36,8 @@ def input_size():
 def make_generator():
     global rows, columns, generator
     rows, columns = input_size()
-    # generator = Generator(rows, rows, SwapPopulator(), RandomShader(), DuplicateFiller())
-    generator = Generator(rows, columns, SwapPopulator(), RandomShader(), DuplicateFiller())
+    generator = Generator(rows, rows, SwapPopulator(), RandomShader(), DuplicateFiller())
+    # generator = Generator(rows, columns, SwapPopulator(), RandomShader(), DuplicateFiller())
     # generator = Generator(6, 6, SwapPopulator(), RandomShader(), DuplicateFiller())
 
 

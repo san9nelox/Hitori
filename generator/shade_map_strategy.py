@@ -188,7 +188,7 @@ class RandomShader(ShadeMapStrategy):
         if c < 0 or c >= self.size_col:
             return -1
 
-        return c + r * self.size_row
+        return c + r * self.size_col
 
     def remove_shaded(self, root, dr, dc):
         r = root // self.size_row
