@@ -1,6 +1,7 @@
 help_message = '/help - чтобы увидеть список команд\n' \
                '/start - сгенерировать головоломку\n' \
                '/solve - узнать, можно ли решить головоломку с заданным полем\n' \
+               '/switch - переключить диагональное правило\n' \
                '/exit - завершить работу\n'
 
 wrong_case_message = 'Неизвестная команда\n'
@@ -20,6 +21,8 @@ def all_func():
                 start_func()
             case "/solve":
                 solve_func()
+            case "/switch":
+                switch_func()
             case "/exit":
                 exit_func()
             case _:
@@ -40,6 +43,12 @@ def start_func():
 def solve_func():
     from hitori_logic.find_solution import can_solve
     can_solve()
+    print()
+
+
+def switch_func():
+    from settings.diagonal_neighbors import switch
+    switch()
     print()
 
 

@@ -1,4 +1,5 @@
 from hitori_logic.field import generate, change_flag, input_board
+from settings.diagonal_neighbors import are_horiz_neigh_diff
 import copy
 
 is_generate = True
@@ -38,6 +39,8 @@ def paint_neighbors_white(board_colors):
                 if j < len(board_colors[i]) - 1:
                     is_black(board_colors[i][j + 1])
                     board_colors[i][j + 1] = 'w'
+                # if are_horiz_neigh_diff:
+
 
 
 def paint_in_lines_black(board_colors, board):

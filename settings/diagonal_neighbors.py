@@ -1,15 +1,15 @@
-are_diagonal_neighbors_different = False
+are_horiz_neigh_diff = False
 
 
 def switch():
-    global are_diagonal_neighbors_different
+    global are_horiz_neigh_diff
     answer = input(f'Вы хотите переключить правило диагональных соседей?\n'
-                   f'В настоящий момент значени {are_diagonal_neighbors_different}\n'
+                   f'В настоящий момент значени {are_horiz_neigh_diff}\n'
                    f'False - выключено, True - включено\n'
-                   f'Введите y/n')
+                   f'Введите y/n: ')
     match answer:
         case 'y':
-            are_diagonal_neighbors_different = not are_diagonal_neighbors_different
+            are_horiz_neigh_diff = not are_horiz_neigh_diff
         case 'n':
             pass
         case _:
