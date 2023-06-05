@@ -23,6 +23,23 @@ def find_duplicates(arr_board, arr_col):
                 arr_col[i - 1][j] = 'b'
 
 
+def paint_neighbors_horizontal_while(i, j, board_colors):
+    if i > 0:
+        if j > 0:
+            is_black(board_colors[i - 1][j - 1])
+            board_colors[i - 1][j - 1] = 'w'
+        if j < len(board_colors[i]):
+            is_black(board_colors[i - 1][j + 1])
+            board_colors[i - 1][j + 1] = 'w'
+    if i < len(board_colors) - 1:
+        if j > 0:
+            is_black(board_colors[i + 1][j - 1])
+            board_colors[i + 1][j - 1] = 'w'
+        if j < len(board_colors[i]):
+            is_black(board_colors[i + 1][j + 1])
+            board_colors[i + 1][j + 1] = 'w'
+
+
 def paint_neighbors_white(board_colors):
     for i in range(len(board_colors)):
         for j in range(len(board_colors[i])):
@@ -39,8 +56,8 @@ def paint_neighbors_white(board_colors):
                 if j < len(board_colors[i]) - 1:
                     is_black(board_colors[i][j + 1])
                     board_colors[i][j + 1] = 'w'
-                # if are_horiz_neigh_diff:
-
+                if are_horiz_neigh_diff:
+                    paint_neighbors_horizontal_while(i, j, board_colors)
 
 
 def paint_in_lines_black(board_colors, board):
