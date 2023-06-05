@@ -1,5 +1,6 @@
 help_message = '/help - чтобы увидеть список команд\n' \
                '/start - сгенерировать головоломку\n' \
+               '/solve - узнать, можно ли решить головоломку с заданным полем\n' \
                '/exit - завершить работу\n'
 
 wrong_case_message = 'Неизвестная команда\n'
@@ -17,6 +18,8 @@ def all_func():
                 help_func()
             case "/start":
                 start_func()
+            case "/solve":
+                solve_func()
             case "/exit":
                 exit_func()
             case _:
@@ -31,6 +34,12 @@ def help_func():
 def start_func():
     from hitori_logic.find_solution import hitori_solution
     hitori_solution()
+    print()
+
+
+def solve_func():
+    from hitori_logic.find_solution import can_solve
+    can_solve()
     print()
 
 

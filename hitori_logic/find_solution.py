@@ -1,5 +1,7 @@
-from hitori_logic.field import generate, change_flag
+from hitori_logic.field import generate, change_flag, input_board
 import copy
+
+is_generate = True
 
 
 def find_duplicates(arr_board, arr_col):
@@ -77,7 +79,7 @@ def paint_single(board_colors, board):
                     board_colors[i][j] = 'w'
 
 
-def paint_сontinuous_path(board_colors, i, j):
+def paint_continuous_path(board_colors, i, j):
     board_colors[i][j] = 'b'
     if not check_connected_white(board_colors):
         board_colors[i][j] = 'g'
@@ -125,19 +127,31 @@ def check_connected_white(array):
 
 
 def is_while(color):
+    global is_generate
     if color == 'w':
-        raise AttributeError
+        if is_generate:
+            raise AttributeError
+        is_generate = True
+        raise AssertionError
         # exit('Головоломку невозможно решить - попытка закрасить черным белую клетку')
 
 
 def is_black(color):
+    global is_generate
     if color == 'b':
-        raise AttributeError
+        if is_generate:
+            raise AttributeError
+        is_generate = True
+        raise AssertionError
         # exit('Головоломку невозможно решить - попытка закрасить белым черную клетку')
 
 
 def hitori_solution():
-    board = generate()
+    global is_generate
+    if is_generate:
+        board = generate()
+    else:
+        board = input_board()
     try:
         board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
         find_duplicates(board, board_colors)
@@ -155,12 +169,14 @@ def hitori_solution():
                         paint_single(board_colors, board)
 
                         if prev_board_colors == board_colors:
-                            paint_сontinuous_path(board_colors, i, j)
+                            paint_continuous_path(board_colors, i, j)
             if not is_painted:
                 break
             if prev_board_colors == board_colors:
-                raise AttributeError
-                # exit('Головоломку невозможно решить - маршрут нельзя построить')
+                if is_generate:
+                    raise AttributeError
+                is_generate = True
+                raise AssertionError
 
         for row in board:
             print(row)
@@ -168,36 +184,14 @@ def hitori_solution():
         for row in board_colors:
             print(row)
         change_flag()
+        is_generate = True
     except AttributeError:
         hitori_solution()
+    except AssertionError:
+        print('Головоломку невозможно решить')
 
 
-"""
-[1, 1, 6, 2, 5, 4, 2],
-[5, 6, 1, 2, 2, 2, 4],
-[3, 2, 5, 7, 7, 2, 1],
-[3, 5, 3, 3, 4, 7, 5],
-[1, 3, 4, 7, 7, 7, 6],
-[4, 4, 4, 5, 3, 1, 7],
-[6, 7, 2, 1, 2, 3, 7]
-"""
-
-"""
-[5, 1, 3, 3, 2, 6],
-[3, 4, 5, 1, 5, 3],
-[6, 2, 4, 5, 3, 2],
-[1, 3, 5, 6, 3, 2],
-[3, 5, 1, 2, 6, 3],
-[4, 1, 2, 3, 1, 5]
-"""
-
-"""
-[6, 6, 2, 1, 5, 8, 3, 1],
-[3, 5, 7, 4, 2, 8, 2, 6],
-[6, 8, 7, 4, 8, 8, 2, 3],
-[4, 8, 3, 1, 7, 5, 1, 2],
-[8, 1, 5, 4, 4, 8, 6, 8],
-[7, 3, 2, 5, 6, 2, 6, 4],
-[6, 2, 4, 6, 1, 3, 7, 5],
-[5, 7, 1, 1, 6, 5, 4, 5]
-"""
+def can_solve():
+    global is_generate
+    is_generate = False
+    hitori_solution()
