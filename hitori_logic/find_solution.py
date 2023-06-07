@@ -223,3 +223,7 @@ def find_solution():
     print()
     for row in final_board_color:
         print(row)
+
+
+def return_board():
+    return final_board
