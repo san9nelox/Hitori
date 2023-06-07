@@ -1,3 +1,5 @@
+import json
+
 import pygame
 
 running = True
@@ -9,10 +11,29 @@ screen_info = pygame.display.Info()
 width = screen_info.current_w * 0.5
 height = screen_info.current_h * 0.5
 
+
+def to_tuple(some_str: str):
+    trans_table = {ord(','): None, ord(')'): None, ord('('): None}
+    return str_to_int(some_str.translate(trans_table).split())
+
+
+def str_to_int(list_str):
+    a = int(list_str[0])
+    b = int(list_str[1])
+    c = int(list_str[2])
+    return (a, b, c)
+
+
 # Цвета
-black = (0, 0, 0)
-white = (255, 255, 255)
-gray = (128, 128, 128)
+with open('constants/CONST.json', 'r', encoding='UTF-8') as json_file:
+    file = json.load(json_file)
+    black = to_tuple(file["black"])
+    white = to_tuple(file["white"])
+    gray = to_tuple(file["gray"])
+
+# black = (0, 0, 0)
+# white = (255, 255, 255)
+# gray = (128, 128, 128)
 
 # Создание окна
 window = pygame.display.set_mode((width, height))
@@ -90,8 +111,8 @@ def main():
 
 def gui():
     print('Doesn\'t work')
-    # from interface.GUI import game
-    # game()
+    from interface.GUI import game
+    game()
 
 
 def cli():
