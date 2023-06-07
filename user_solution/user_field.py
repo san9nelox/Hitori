@@ -1,17 +1,19 @@
 from hitori_logic.find_solution import hitori_solution, return_board, check_connected_white
 
-hitori_solution(7)
-board = return_board()
-board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
+board = None
+board_colors = None
 
 
-def check_duplicates_in_row():
-    pass
+def generate_board(size):
+    global board, board_colors
+    hitori_solution(size)
+    board = return_board()
+    board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
 
 
-def check_duplicates_in_column():
-    pass
+def return_user_board():
+    return board
 
 
-def check_horizontal_neigh():
-    pass
+def return_user_board_colors():
+    return board_colors
