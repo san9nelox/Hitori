@@ -35,8 +35,8 @@ def help_func():
 
 
 def start_func():
-    from hitori_logic.find_solution import hitori_solution
-    hitori_solution()
+    from hitori_logic.find_solution import find_solution
+    find_solution()
     print()
 
 

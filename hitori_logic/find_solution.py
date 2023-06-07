@@ -2,6 +2,8 @@ from hitori_logic.field import generate, change_flag, input_board
 from settings.diagonal_neighbors import are_horiz_neigh_diff
 import copy
 
+final_board = None
+final_board_color = None
 is_generate = True
 
 
@@ -167,7 +169,7 @@ def is_black(color):
 
 
 def hitori_solution():
-    global is_generate
+    global is_generate, final_board, final_board_color
     if is_generate:
         board = generate()
     else:
@@ -198,11 +200,8 @@ def hitori_solution():
                 is_generate = True
                 raise AssertionError
 
-        for row in board:
-            print(row)
-        print()
-        for row in board_colors:
-            print(row)
+        final_board = board
+        final_board_color = board_colors
         change_flag()
         is_generate = True
     except AttributeError:
@@ -215,3 +214,12 @@ def can_solve():
     global is_generate
     is_generate = False
     hitori_solution()
+
+
+def find_solution():
+    hitori_solution()
+    for row in final_board:
+        print(row)
+    print()
+    for row in final_board_color:
+        print(row)
