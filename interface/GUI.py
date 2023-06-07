@@ -1,7 +1,13 @@
+import json
+
 import pygame
 from pygame.locals import *
+from user_solution.user_field import board
+from hitori_logic.constant_converter import return_color
 
-from hitori_logic.field import board, size
+size = len(board)
+
+BLACK, WHITE, GRAY = return_color()
 
 # инициализация Pygame
 pygame.init()
@@ -29,9 +35,9 @@ def game():
     screen = pygame.display.set_mode(WINDOW_SIZE)
 
     # цвета
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
-    GRAY = (128, 128, 128)
+    # WHITE = (255, 255, 255)
+    # BLACK = (0, 0, 0)
+    # GRAY = (128, 128, 128)
 
     for i in range(size):
         for j in range(size):
@@ -71,3 +77,6 @@ def game():
 
     # завершение Pygame
     pygame.quit()
+
+
+game()
