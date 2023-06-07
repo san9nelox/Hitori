@@ -110,7 +110,6 @@ def main():
 
 
 def gui():
-    print('Doesn\'t work')
     from interface.GUI import game
     game()
 
