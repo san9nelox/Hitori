@@ -1,11 +1,13 @@
-import json
-
 import pygame
 from pygame.locals import *
-from user_solution.user_field import board
+from user_solution.user_field import generate_board, return_board
+from interface.GUI.size_window import make_size, return_size, width, height
 from hitori_logic.constant_converter import return_color
 
-size = len(board)
+make_size()
+size = return_size()
+generate_board(size)
+board = return_board()
 
 BLACK, WHITE, GRAY = return_color()
 
@@ -15,7 +17,8 @@ pygame.init()
 # шрифты
 FONT = pygame.font.SysFont("Arial", 30)
 # отображение поля
-cell_size = 50
+cell_size = max(width, height) // size
+pygame.display.set_caption("Хитори")
 
 
 def change_color(color_background, color_number, screen, row, column):
@@ -29,15 +32,10 @@ def change_color(color_background, color_number, screen, row, column):
 
 def game():
     # размеры окна
-    WINDOW_SIZE = (50 * size, 50 * size)
+    window_size = (cell_size * size + width * 0.5, cell_size * size)
 
     # создаем окно
-    screen = pygame.display.set_mode(WINDOW_SIZE)
-
-    # цвета
-    # WHITE = (255, 255, 255)
-    # BLACK = (0, 0, 0)
-    # GRAY = (128, 128, 128)
+    screen = pygame.display.set_mode(window_size)
 
     for i in range(size):
         for j in range(size):
@@ -72,11 +70,6 @@ def game():
                             elif pixel_color == WHITE:
                                 change_color(GRAY, BLACK, screen, i, j)
 
-        # обновление экрана
         pygame.display.flip()
 
-    # завершение Pygame
     pygame.quit()
-
-
-game()
