@@ -168,10 +168,10 @@ def is_black(color):
         # exit('Головоломку невозможно решить - попытка закрасить белым черную клетку')
 
 
-def hitori_solution():
+def hitori_solution(size=0):
     global is_generate, final_board, final_board_color
     if is_generate:
-        board = generate()
+        board = generate(size)
     else:
         board = input_board()
     try:

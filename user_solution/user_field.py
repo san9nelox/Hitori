@@ -1,6 +1,6 @@
 from hitori_logic.find_solution import hitori_solution, return_board, check_connected_white
 
-hitori_solution()
+hitori_solution(7)
 board = return_board()
 board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
 
