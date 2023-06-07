@@ -31,10 +31,6 @@ with open('constants/CONST.json', 'r', encoding='UTF-8') as json_file:
     white = to_tuple(file["white"])
     gray = to_tuple(file["gray"])
 
-# black = (0, 0, 0)
-# white = (255, 255, 255)
-# gray = (128, 128, 128)
-
 # Создание окна
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Выбор режима")
