@@ -4,23 +4,11 @@ from hitori_logic.button import Button
 
 running = True
 size = 0
-
-# Инициализация Pygame
-pygame.init()
-
-# Размеры окна
-screen_info = pygame.display.Info()
-width = int(screen_info.current_w * 0.5)
-height = int(screen_info.current_h * 0.5)
-
+width = 0
+height = 0
 black, white, gray = return_color()
 
-# Создание окна
-window = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Выбор размера поля")
 
-
-# Функция для отображения текста на кнопке
 def draw_text(text, font, color, surface, x, y):
     text_obj = font.render(text, True, color)
     text_rect = text_obj.get_rect()
@@ -28,7 +16,6 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(text_obj, text_rect)
 
 
-# Класс кнопки
 class ButtonSizeWindow(Button):
     def draw(self, surface):
         Button.draw(self, surface)
@@ -48,13 +35,23 @@ class ButtonSizeWindow(Button):
 
 
 def make_size():
-    global running, window  # Добавляем window в глобальные переменные
+    global running, width, height
+    running = True
+
+    pygame.init()
+
+    screen_info = pygame.display.Info()
+    width = int(screen_info.current_w * 0.5)
+    height = int(screen_info.current_h * 0.5)
+
+    window = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Выбор размера поля")
+
     button_width = width * 0.3
     button_height = height * 0.1
     button_x = (width - button_width) // 2
     button_y = (height - button_height) // 2
 
-    # Создание кнопок
     button1 = ButtonSizeWindow(button_x, button_y - 100, button_width, button_height, gray, white, "6",
                                pygame.font.Font(None, 32), 6)
     button2 = ButtonSizeWindow(button_x, button_y - 50, button_width, button_height, gray, white, "7",
@@ -66,7 +63,6 @@ def make_size():
     button5 = ButtonSizeWindow(button_x, button_y + 100, button_width, button_height, gray, white, "10",
                                pygame.font.Font(None, 32), 10)
 
-    # Основной цикл программы
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -1,27 +1,32 @@
 import pygame
 from pygame.locals import *
 from user_solution.user_field import generate_board, return_board, return_user_board_colors
-from interface.GUI.size_window import make_size, return_size, width, height
+from interface.GUI.size_window import make_size, return_size
 from hitori_logic.constant_converter import return_color
 
-make_size()
-size = return_size()
-generate_board(size)
-board = return_board()
-board_colors = return_user_board_colors()
 check_button_rect = None
-exit_button_rect = None
-
+menu_button_rect = None
+board = None
+board_colors = None
 BLACK, WHITE, GRAY = return_color()
+FONT = None
+cell_size = 0
+width = 0
+height = 0
+size = 0
 
-# инициализация Pygame
-pygame.init()
 
-# шрифты
-FONT = pygame.font.SysFont("Arial", 30)
-# отображение поля
-cell_size = max(width, height) // size
-pygame.display.set_caption("Хитори")
+def start():
+    global board, board_colors, size, FONT
+    make_size()
+    size = return_size()
+    generate_board(size)
+    board = return_board()
+    board_colors = return_user_board_colors()
+    pygame.init()
+    FONT = pygame.font.SysFont("Arial", 30)
+    pygame.display.set_caption("Хитори")
+    game()
 
 
 def change_color(color_background, color_number, screen, row, column):
@@ -34,10 +39,9 @@ def change_color(color_background, color_number, screen, row, column):
 
 
 def draw_buttons(screen):
-    global check_button_rect, exit_button_rect
+    global check_button_rect, menu_button_rect
     button_font = pygame.font.SysFont("Arial", 20)
 
-    # Кнопка "Проверить"
     check_button_rect = pygame.Rect(cell_size * size + width * 0.1, height * 0.5, width * 0.3, height * 0.2)
     pygame.draw.rect(screen, WHITE, check_button_rect)
     pygame.draw.rect(screen, BLACK, check_button_rect, 2)
@@ -45,30 +49,30 @@ def draw_buttons(screen):
     check_text_rect = check_text.get_rect(center=check_button_rect.center)
     screen.blit(check_text, check_text_rect)
 
-    # Кнопка "Выход"
-    exit_button_rect = pygame.Rect(cell_size * size + width * 0.1, height * 0.9, width * 0.3, height * 0.2)
-    pygame.draw.rect(screen, WHITE, exit_button_rect)
-    pygame.draw.rect(screen, BLACK, exit_button_rect, 2)
-    exit_text = button_font.render("Выход", True, BLACK)
-    exit_text_rect = exit_text.get_rect(center=exit_button_rect.center)
+    menu_button_rect = pygame.Rect(cell_size * size + width * 0.1, height * 0.9, width * 0.3, height * 0.2)
+    pygame.draw.rect(screen, WHITE, menu_button_rect)
+    pygame.draw.rect(screen, BLACK, menu_button_rect, 2)
+    exit_text = button_font.render("Выйти в меню", True, BLACK)
+    exit_text_rect = exit_text.get_rect(center=menu_button_rect.center)
     screen.blit(exit_text, exit_text_rect)
 
 
 def game():
-    # размеры окна
+    global width, height, cell_size
+    screen_info = pygame.display.Info()
+    width = int(screen_info.current_w * 0.5)
+    height = int(screen_info.current_h * 0.5)
+    cell_size = max(width, height) // size
     window_size = (cell_size * size + width * 0.5, cell_size * size)
 
-    # создаем окно
     screen = pygame.display.set_mode(window_size)
 
     for i in range(size):
         for j in range(size):
             change_color(GRAY, BLACK, screen, i, j)
 
-    # обновление экрана
     pygame.display.flip()
 
-    # игровой цикл
     running = True
     while running:
         for event in pygame.event.get():
@@ -100,16 +104,13 @@ def game():
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse_pos = pygame.mouse.get_pos()
                 if check_button_rect.collidepoint(mouse_pos):
-                    # Обработка нажатия на кнопку "Проверить"
                     print('Чек работает')
-                elif exit_button_rect.collidepoint(mouse_pos):
-                    # Обработка нажатия на кнопку "Выход"
+                elif menu_button_rect.collidepoint(mouse_pos):
+                    from interface.GUI.menu import make_menu
                     running = False
-                    print('Я работаю')
+                    pygame.quit()
+                    make_menu()
 
-        # Отображение кнопок
         draw_buttons(screen)
 
         pygame.display.flip()
-
-    pygame.quit()

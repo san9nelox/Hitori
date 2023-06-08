@@ -3,21 +3,7 @@ from hitori_logic.constant_converter import return_color
 from hitori_logic.button import Button
 
 running = True
-size = 0
-
-# Инициализация Pygame
-pygame.init()
-
-# Размеры окна
-screen_info = pygame.display.Info()
-width = int(screen_info.current_w * 0.5)
-height = int(screen_info.current_h * 0.5)
-
 black, white, gray = return_color()
-
-# Создание окна
-window = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Меню")
 
 
 class ButtonMenu(Button):
@@ -45,18 +31,29 @@ class ButtonMenu(Button):
 
 
 def make_menu():
-    global running, window
+    global running
+    running = True
+
+    pygame.init()
+
+    screen_info = pygame.display.Info()
+    width = int(screen_info.current_w * 0.5)
+    height = int(screen_info.current_h * 0.5)
+
+    window = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Меню")
+
     button_width = width * 0.3
     button_height = height * 0.1
     button_x = (width - button_width) // 2
     button_y = (height - button_height) // 2
 
-    button_play = ButtonMenu(button_x, button_y - 100, button_width, button_height, gray, white, "Играть",
-                             pygame.font.Font(None, 32), "play")
-    button_settings = ButtonMenu(button_x, button_y - 50, button_width, button_height, gray, white, "Настройки",
-                                 pygame.font.Font(None, 32), "settings")
-    button_exit = ButtonMenu(button_x, button_y, button_width, button_height, gray, white, "Выход",
-                             pygame.font.Font(None, 32), "exit")
+    button_play = ButtonMenu(button_x, button_y - 100, button_width, button_height, gray, white, 'Играть',
+                             pygame.font.Font(None, 32), 'play')
+    button_settings = ButtonMenu(button_x, button_y - 50, button_width, button_height, gray, white, 'Настройки',
+                                 pygame.font.Font(None, 32), 'settings')
+    button_exit = ButtonMenu(button_x, button_y, button_width, button_height, gray, white, 'Выход',
+                             pygame.font.Font(None, 32), 'exit')
 
     while running:
         for event in pygame.event.get():
@@ -74,8 +71,8 @@ def make_menu():
 
 
 def play_func():
-    from interface.GUI.game import game
-    game()
+    from interface.GUI.game import start
+    start()
 
 
 def settings_func():
