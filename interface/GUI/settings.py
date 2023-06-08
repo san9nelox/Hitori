@@ -50,7 +50,7 @@ def make_settings():
     button_x = (width - button_width) // 2
     button_y = (height - button_height) // 2
 
-    title_font = pygame.font.Font(None, 48)  # выберите желаемый шрифт и размер
+    title_font = pygame.font.Font(None, 48)
     title_text_color = white
 
     button_on = ButtonSettings(button_x, button_y - 50, button_width, button_height, gray, white, 'Включить',

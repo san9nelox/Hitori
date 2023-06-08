@@ -3,6 +3,7 @@ from pygame.locals import *
 from user_solution.user_field import generate_board, return_board, return_user_board_colors
 from interface.GUI.size_window import make_size, return_size
 from hitori_logic.constant_converter import return_color
+from interface.GUI.answer_to_user import check_win
 
 check_button_rect = None
 menu_button_rect = None
@@ -104,7 +105,14 @@ def game():
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse_pos = pygame.mouse.get_pos()
                 if check_button_rect.collidepoint(mouse_pos):
-                    print('Чек работает')
+                    pygame.display.flip()
+                    title_font = pygame.font.Font(None, 30)
+                    title_text_color = WHITE
+                    title_text = title_font.render(f"{check_win(board_colors)}", True, title_text_color)
+                    title_text_rect = title_text.get_rect(center=(width * 1.25, height * 1.25))
+                    screen.blit(title_text, title_text_rect)
+
+
                 elif menu_button_rect.collidepoint(mouse_pos):
                     from interface.GUI.menu import make_menu
                     running = False
