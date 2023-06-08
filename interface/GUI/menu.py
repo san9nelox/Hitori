@@ -76,7 +76,8 @@ def play_func():
 
 
 def settings_func():
-    pass
+    from interface.GUI.settings import make_settings
+    make_settings()
 
 
 def exit_func():
