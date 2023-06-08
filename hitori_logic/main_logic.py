@@ -41,14 +41,12 @@ class ButtonMainLogic(Button):
                 self.color = gray
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
+                running = False
+                pygame.quit()
                 match self.value:
                     case "CLI":
-                        running = False
-                        pygame.quit()
                         cli()
                     case "GUI":
-                        running = False
-                        pygame.quit()
                         gui()
 
 
@@ -80,8 +78,8 @@ def main():
 
 
 def gui():
-    from interface.GUI.game import game
-    game()
+    from interface.GUI.menu import make_menu
+    make_menu()
 
 
 def cli():

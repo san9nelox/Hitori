@@ -1,4 +1,4 @@
-from hitori_logic.find_solution import hitori_solution, return_board, check_connected_white
+from hitori_logic.find_solution import hitori_solution, return_board
 
 board = None
 board_colors = None
