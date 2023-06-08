@@ -1,5 +1,6 @@
 import pygame
 from hitori_logic.constant_converter import return_color
+from hitori_logic.button import Button
 
 running = True
 # Инициализация Pygame
@@ -18,26 +19,18 @@ pygame.display.set_caption("Выбор режима")
 
 
 # Функция для отображения текста на кнопке
-def draw_text(text, font, color, surface, x, y):
-    text_obj = font.render(text, True, color)
-    text_rect = text_obj.get_rect()
-    text_rect.center = (x, y)
-    surface.blit(text_obj, text_rect)
+# def draw_text(text, font, color, surface, x, y):
+#     text_obj = font.render(text, True, color)
+#     text_rect = text_obj.get_rect()
+#     text_rect.center = (x, y)
+#     surface.blit(text_obj, text_rect)
 
 
 # Класс кнопки
-class Button:
-    def __init__(self, x, y, w, h, color, hover_color, text, font, value):
-        self.rect = pygame.Rect(x, y, w, h)
-        self.color = color
-        self.hover_color = hover_color
-        self.text = text
-        self.font = font
-        self.value = value
+class ButtonMainLogic(Button):
 
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.rect)
-        draw_text(self.text, self.font, black, surface, self.rect.centerx, self.rect.centery)
+        Button.draw(self, surface)
 
     def handle_event(self, event):
         global running
@@ -67,10 +60,10 @@ def main():
     button_y = (height - button_height) // 2
 
     # Создание кнопок
-    button1 = Button(button_x, button_y - 100, button_width, button_height, gray, white, "Разработка",
-                     pygame.font.Font(None, 32), "CLI")
-    button2 = Button(button_x, button_y + 100, button_width, button_height, gray, white, "Игра",
-                     pygame.font.Font(None, 32), "GUI")
+    button1 = ButtonMainLogic(button_x, button_y - 100, button_width, button_height, gray, white, "Разработка",
+                              pygame.font.Font(None, 32), "CLI")
+    button2 = ButtonMainLogic(button_x, button_y + 100, button_width, button_height, gray, white, "Игра",
+                              pygame.font.Font(None, 32), "GUI")
 
     # Основной цикл программы
     while running:

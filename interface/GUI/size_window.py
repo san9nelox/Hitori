@@ -1,5 +1,6 @@
 import pygame
 from hitori_logic.constant_converter import return_color
+from hitori_logic.button import Button
 
 running = True
 size = 0
@@ -28,18 +29,9 @@ def draw_text(text, font, color, surface, x, y):
 
 
 # Класс кнопки
-class Button:
-    def __init__(self, x, y, w, h, color, hover_color, text, font, value):
-        self.rect = pygame.Rect(x, y, w, h)
-        self.color = color
-        self.hover_color = hover_color
-        self.text = text
-        self.font = font
-        self.value = value
-
+class ButtonSizeWindow(Button):
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.rect)
-        draw_text(self.text, self.font, black, surface, self.rect.centerx, self.rect.centery)
+        Button.draw(self, surface)
 
     def handle_event(self, event):
         global running, size
@@ -63,16 +55,16 @@ def make_size():
     button_y = (height - button_height) // 2
 
     # Создание кнопок
-    button1 = Button(button_x, button_y - 100, button_width, button_height, gray, white, "6",
-                     pygame.font.Font(None, 32), 6)
-    button2 = Button(button_x, button_y - 50, button_width, button_height, gray, white, "7",
-                     pygame.font.Font(None, 32), 7)
-    button3 = Button(button_x, button_y, button_width, button_height, gray, white, "8",
-                     pygame.font.Font(None, 32), 8)
-    button4 = Button(button_x, button_y + 50, button_width, button_height, gray, white, "9",
-                     pygame.font.Font(None, 32), 9)
-    button5 = Button(button_x, button_y + 100, button_width, button_height, gray, white, "10",
-                     pygame.font.Font(None, 32), 10)
+    button1 = ButtonSizeWindow(button_x, button_y - 100, button_width, button_height, gray, white, "6",
+                               pygame.font.Font(None, 32), 6)
+    button2 = ButtonSizeWindow(button_x, button_y - 50, button_width, button_height, gray, white, "7",
+                               pygame.font.Font(None, 32), 7)
+    button3 = ButtonSizeWindow(button_x, button_y, button_width, button_height, gray, white, "8",
+                               pygame.font.Font(None, 32), 8)
+    button4 = ButtonSizeWindow(button_x, button_y + 50, button_width, button_height, gray, white, "9",
+                               pygame.font.Font(None, 32), 9)
+    button5 = ButtonSizeWindow(button_x, button_y + 100, button_width, button_height, gray, white, "10",
+                               pygame.font.Font(None, 32), 10)
 
     # Основной цикл программы
     while running:
