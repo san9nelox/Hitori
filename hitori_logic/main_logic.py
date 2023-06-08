@@ -87,7 +87,7 @@ def main():
 
 
 def gui():
-    from interface.GUI.GUI import game
+    from interface.GUI.game import game
     game()
 
 
