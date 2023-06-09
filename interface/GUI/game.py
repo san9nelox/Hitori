@@ -105,7 +105,8 @@ def game():
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse_pos = pygame.mouse.get_pos()
                 if check_button_rect.collidepoint(mouse_pos):
-                    pygame.display.flip()
+                    pygame.draw.rect(screen, BLACK,
+                                     (width, height * 1.12, width * 0.5, height * 0.2))
                     title_font = pygame.font.Font(None, 30)
                     title_text_color = WHITE
                     title_text = title_font.render(f"{check_win(board_colors)}", True, title_text_color)

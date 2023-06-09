@@ -1,5 +1,7 @@
 from hitori_logic.find_solution import check_connected_white
-from user_solution.user_field import board
+from user_solution.user_field import return_board
+
+board = None
 
 
 def check_no_gray(board_colors):
@@ -7,6 +9,25 @@ def check_no_gray(board_colors):
         for j in range(len(board_colors[i])):
             if board_colors[i][j] == 'g':
                 return False
+    return True
+
+
+def check_black_neigh(board_colors):
+    for i in range(len(board_colors)):
+        for j in range(len(board_colors[i])):
+            if board_colors[i][j] == 'b':
+                if i > 0:
+                    if board_colors[i - 1][j] == 'b':
+                        return False
+                if i < len(board_colors) - 1:
+                    if board_colors[i + 1][j] == 'b':
+                        return False
+                if j > 0:
+                    if board_colors[i][j - 1] == 'b':
+                        return False
+                if j < len(board_colors[i]) - 1:
+                    if board_colors[i][j + 1] == 'b':
+                        return False
     return True
 
 
@@ -50,14 +71,18 @@ def check_horizontal_neigh(board_colors):
 
 
 def all_check(board_colors):
+    global board
+    board = return_board()
     if not check_no_gray(board_colors):
-        return 'gray exeption'
+        return 'gray exception'
+    if not check_black_neigh(board_colors):
+        return 'black exception'
     if not check_duplicates_in_row(board_colors):
-        return 'row exeption'
+        return 'row exception'
     if not check_duplicates_in_column(board_colors):
-        return 'column exeption'
+        return 'column exception'
     if not check_horizontal_neigh(board_colors):
-        return 'neigh exeption'
+        return 'neigh exception'
     if not check_connected_white(board_colors):
-        return 'connection exeption'
+        return 'connection exception'
     return 'win'
