@@ -7,7 +7,7 @@ import random
 
 class ShadeMapStrategy(ABC):
     @abstractmethod
-    def generate(self, shade_map: List[bool], size_row: int, size_col: int, random: random.Random) -> None:
+    def generate(self, shade_map: List[bool], size: int, random: random.Random) -> None:
         pass
 
 
@@ -16,17 +16,15 @@ class RandomShader(ShadeMapStrategy):
         self.frequency = frequency
         self.isFrequencyFixed = True if frequency > 0 else False
         self.shadeMap = None
-        self.size_row = 0
-        self.size_col = 0
+        self.size = 0
         self.random = None
 
-    def generate(self, shade_map, size_row, size_col, random):
+    def generate(self, shade_map, size, random):
         if not self.isFrequencyFixed:
-            self.frequency = (size_row * size_col) // 2
+            self.frequency = (size * size) // 2
 
         self.shadeMap = shade_map
-        self.size_row = size_row
-        self.size_col = size_col
+        self.size = size
         self.random = random
 
         self.random_shade()
@@ -177,32 +175,32 @@ class RandomShader(ShadeMapStrategy):
                 self.shadeMap[index] = True
 
     def index(self, start, dr, dc):
-        r = start // self.size_row
-        c = start // self.size_col
+        r = start // self.size
+        c = start // self.size
 
         r += dr
         c += dc
 
-        if r < 0 or r >= self.size_row:
+        if r < 0 or r >= self.size:
             return -1
-        if c < 0 or c >= self.size_col:
+        if c < 0 or c >= self.size:
             return -1
 
-        return c + r * self.size_col
+        return c + r * self.size
 
     def remove_shaded(self, root, dr, dc):
-        r = root // self.size_row
-        c = root % self.size_col
+        r = root // self.size
+        c = root % self.size
 
         r += dr
         c += dc
 
         is_horizontal = random.choice([True, False])
 
-        if r < 0 or r >= self.size_row:
+        if r < 0 or r >= self.size:
             # Can't do vertical
             is_horizontal = True
-        elif c < 0 or c >= self.size_col:
+        elif c < 0 or c >= self.size:
             # Can't do horizontal
             is_horizontal = False
 

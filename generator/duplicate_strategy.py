@@ -5,26 +5,22 @@ from typing import List
 
 class DuplicateStrategy(ABC):
     @abstractmethod
-    def fill(self, base: List[int], shade_map: List[bool], size_row: int, size_col: int, random: random.Random) -> None:
+    def fill(self, base: List[int], shade_map: List[bool], size: int, random: random.Random) -> None:
         pass
 
 
 class DuplicateFiller(DuplicateStrategy):
     def __init__(self):
         self.random = None
-        self.size_row = None
-        self.size_col = None
-        self.max_size = None
+        self.size = None
         self.data = None
         self.shade_map = None
         self.max_size = None
 
-    def fill(self, base, shade_map, size_row, size_col, random):
+    def fill(self, base, shade_map, size, random):
         self.data = base
         self.shade_map = shade_map
-        self.size_row = size_row
-        self.size_col = size_col
-        self.max_size = max(self.size_row, self.size_col)
+        self.size = size
         self.random = random
 
         self.apply_duplicates()
@@ -33,9 +29,9 @@ class DuplicateFiller(DuplicateStrategy):
 
         # Take the shaded cells and determine numbers that are duplicate to others
         # in the row or col
-        for r in range(self.size_row):
-            for c in range(self.size_col):
-                if not self.shade_map[r * self.size_col + c]:
+        for r in range(self.size):
+            for c in range(self.size):
+                if not self.shade_map[r * self.size + c]:
                     continue
 
                 # This is a shaded cell
@@ -56,9 +52,9 @@ class DuplicateFiller(DuplicateStrategy):
 
     def gen_row_mask(self, r, shade_map):
         mask = 0
-        for c in range(self.size_col):
+        for c in range(self.size):
             # As long as it is not shaded
-            if not shade_map[r * self.size_col + c]:
+            if not shade_map[r * self.size + c]:
                 # Can use the number
                 mask |= (1 << self.data[r][c])
 
@@ -66,9 +62,9 @@ class DuplicateFiller(DuplicateStrategy):
 
     def gen_col_mask(self, c, shade_map):
         mask = 0
-        for r in range(self.size_row):
+        for r in range(self.size):
             # As long as it is not shaded
-            if not shade_map[r * self.size_col + c]:
+            if not shade_map[r * self.size + c]:
                 # Can use the number
                 mask |= (1 << self.data[r][c])
 
@@ -77,14 +73,14 @@ class DuplicateFiller(DuplicateStrategy):
     def random_number(self, mask):
         # Work out how many we can choose from
         choices = 0
-        for i in range(1, self.max_size + 1):
+        for i in range(1, self.size + 1):
             if mask & (1 << i) != 0:
                 choices += 1
 
         choice = random.randint(0, choices - 1)
 
         # Find the value
-        for i in range(1, self.max_size + 1):
+        for i in range(1, self.size + 1):
             if mask & (1 << i) != 0:
                 if choice == 0:
                     return i

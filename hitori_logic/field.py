@@ -32,7 +32,7 @@ def make_generator(size):
     if size == 0:
         size = input_size()
     first_input_flag = False
-    generator = Generator(size, size, SwapPopulator(), RandomShader(), DuplicateFiller())
+    generator = Generator(size, SwapPopulator(), RandomShader(), DuplicateFiller())
 
 
 def generate(size):
