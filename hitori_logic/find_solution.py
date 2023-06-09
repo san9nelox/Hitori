@@ -5,6 +5,7 @@ import copy
 final_board = None
 final_board_color = None
 is_generate = True
+is_solved = False
 
 
 def find_duplicates(arr_board, arr_col):
@@ -169,7 +170,7 @@ def is_black(color):
 
 
 def hitori_solution(size=0):
-    global is_generate, final_board, final_board_color
+    global is_generate, final_board, final_board_color, is_solved
     if is_generate:
         board = generate(size)
     else:
@@ -204,6 +205,7 @@ def hitori_solution(size=0):
         final_board_color = board_colors
         change_flag()
         is_generate = True
+        is_solved = True
     except AttributeError:
         hitori_solution()
     except AssertionError:
@@ -214,10 +216,16 @@ def can_solve():
     global is_generate
     is_generate = False
     hitori_solution()
+    if is_solved:
+        print_boards()
 
 
 def find_solution():
     hitori_solution()
+    print_boards()
+
+
+def print_boards():
     for row in final_board:
         print(row)
     print()

@@ -46,21 +46,25 @@ def input_board():
     input_flag = True
     board = []
     while input_flag:
+        size = input("Введите размер поля n x n от 6 до 10: ")
         try:
-            size = int(input("Введите размер поля n x n от 6 до 10: "))
-        except ValueError:
+            size_split = size.split('x')
+            n = int(size_split[0])
+            m = int(size_split[1])
+
+        except:
             continue
-        if size < 6 or size > 10:
+        if (n or m) < 6 or (n or m) > 10:
             continue
         input_flag = False
 
     print('Введите поле:')
     input_flag = True
     while input_flag:
-        for i in range(size):
+        for i in range(n):
             line = input()
             line_split = line.split()
-            while len(line_split) != size:
+            while len(line_split) != m:
                 line = input(f'Введите {i + 1} строку верно: ')
                 line_split = line.split()
             board.append(line_split)
