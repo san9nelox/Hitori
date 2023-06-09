@@ -1,3 +1,5 @@
+import random
+
 from hitori_logic.field import generate, change_flag, input_board
 from settings.diagonal_neighbors import are_horiz_neigh_diff
 import copy
@@ -6,11 +8,14 @@ final_board = None
 final_board_color = None
 is_generate = True
 is_solved = False
+find_another_solution = False
+count_solution = 0
+array_solutions = []
 
 
-def find_duplicates(arr_board, arr_col):
+def find_duplicates(arr_board, arr_col, start=0):
     # Проверяем строки
-    for i in range(len(arr_board)):
+    for i in range(start, len(arr_board)):
         for j in range(len(arr_board[i])):
             if 0 < j < len(arr_board[i]) - 1 and arr_board[i][j - 1] == arr_board[i][j + 1] == arr_board[i][j]:
                 arr_col[i][j] = 'w'
@@ -169,15 +174,17 @@ def is_black(color):
         # exit('Головоломку невозможно решить - попытка закрасить белым черную клетку')
 
 
-def hitori_solution(size=0):
-    global is_generate, final_board, final_board_color, is_solved
+def hitori_solution(size=0, start=0):
+    global is_generate, final_board, final_board_color, is_solved, first_solution, find_another_solution
     if is_generate:
         board = generate(size)
+    elif find_another_solution:
+        board = final_board
     else:
         board = input_board()
     try:
         board_colors = [['g'] * len(board[0]) for _ in range(len(board))]
-        find_duplicates(board, board_colors)
+        find_duplicates(board, board_colors, start)
         paint_neighbors_white(board_colors)
 
         while True:
@@ -204,6 +211,7 @@ def hitori_solution(size=0):
         final_board = board
         final_board_color = board_colors
         change_flag()
+        find_another_solution = False
         is_generate = True
         is_solved = True
     except AttributeError:
@@ -235,3 +243,20 @@ def print_boards():
 
 def return_board():
     return final_board
+
+
+def find_different_solution():
+    global final_board, array_solutions, find_another_solution, count_solution, final_board_color, \
+        is_generate
+    while count_solution < 3:
+        if final_board is None:
+            start = 0
+        else:
+            is_generate = False
+            find_another_solution = True
+            start = random.randint(1, len(final_board) / 2)
+        hitori_solution(start=start)
+        if final_board_color not in array_solutions:
+            array_solutions.append(final_board_color)
+            print_boards()
+        count_solution += 1

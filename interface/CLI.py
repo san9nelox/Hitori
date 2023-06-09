@@ -1,5 +1,6 @@
 help_message = '/help - чтобы увидеть список команд\n' \
                '/start - сгенерировать головоломку\n' \
+               '/startN - найти 3 решения одной головомки, если есть\n' \
                '/solve - узнать, можно ли решить головоломку с заданным полем\n' \
                '/switch - переключить диагональное правило\n' \
                '/exit - завершить работу\n'
@@ -19,6 +20,8 @@ def all_func():
                 help_func()
             case "/start":
                 start_func()
+            case "/startN":
+                startN_func()
             case "/solve":
                 solve_func()
             case "/switch":
@@ -37,6 +40,12 @@ def help_func():
 def start_func():
     from hitori_logic.find_solution import find_solution
     find_solution()
+    print()
+
+
+def startN_func():
+    from hitori_logic.find_solution import find_different_solution
+    find_different_solution()
     print()
 
 
