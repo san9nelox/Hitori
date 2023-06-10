@@ -26,3 +26,7 @@
 Запуск программы: в файле main.py запустить функцию main()
 
 ![img.png](main.png)
+
+## Requirements
+* Python 3.11
+* Pygame 2.2.1
