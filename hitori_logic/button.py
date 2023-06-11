@@ -23,22 +23,3 @@ class Button:
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.rect)
         draw_text(self.text, self.font, black, surface, self.rect.centerx, self.rect.centery)
-
-    def handle_event(self, event):
-        global running
-        if event.type == pygame.MOUSEMOTION:
-            if self.rect.collidepoint(event.pos):
-                self.color = self.hover_color
-            else:
-                self.color = gray
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                match self.value:
-                    case "CLI":
-                        running = False
-                        pygame.quit()
-                        cli()
-                    case "GUI":
-                        running = False
-                        pygame.quit()
-                        gui()
