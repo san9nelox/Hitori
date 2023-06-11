@@ -56,17 +56,20 @@ def check_horizontal_neigh(board_colors):
         for j in range(len(board_colors[i])):
             if board_colors[i][j] == 'w':
                 if i > 0:
-                    if board_colors[i - 1][j] == 'w' and board[i][j] == board[i - 1][j]:
-                        return False
+                    if j > 0:
+                        if board_colors[i - 1][j - 1] == 'w' and board[i][j] == board[i - 1][j - 1]:
+                            return False
+                    if j < len(board_colors[i]) - 1:
+                        if board_colors[i - 1][j + 1] == 'w' and board[i][j] == board[i - 1][j + 1]:
+                            return False
                 if i < len(board_colors) - 1:
-                    if board_colors[i + 1][j] == 'w' and board[i][j] == board[i + 1][j]:
-                        return False
-                if j > 0:
-                    if board_colors[i][j - 1] == 'w' and board[i][j] == board[i][j - 1]:
-                        return False
-                if j < len(board_colors[i]) - 1:
-                    if board_colors[i][j + 1] == 'w' and board[i][j] == board[i][j + 1]:
-                        return False
+                    if j > 0:
+                        if board_colors[i + 1][j - 1] == 'w' and board[i][j] == board[i + 1][j - 1]:
+                            return False
+                    if j < len(board_colors[i]) - 1:
+                        if board_colors[i + 1][j + 1] == 'w' and board[i][j] == board[i + 1][j + 1]:
+                            return False
+
     return True
 
 
