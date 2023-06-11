@@ -1,7 +1,12 @@
 import unittest
-from unittest.mock import patch
-from io import StringIO
-from hitori_logic.find_solution import *
+from hitori_logic.find_solution import (
+    find_duplicates,
+    paint_neighbors_horizontal_while,
+    paint_single,
+    paint_neighbors_white,
+    paint_continuous_path,
+    paint_in_lines_black,
+    check_connected_white)
 
 
 class HitoriLogicTests(unittest.TestCase):
