@@ -260,3 +260,8 @@ def find_different_solution():
             array_solutions.append(final_board_color)
             print_boards()
         count_solution += 1
+
+
+def set_final_board(board):
+    global final_board
+    final_board = board
